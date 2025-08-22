@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v2
       
       - name: Fetch latest tags
-        uses: naminduranathunga/test-reusable-workflow/.github/workflows/reusable-workflow.yml@main
+        uses: ./.github/workflows/reusable-workflow.yml
         with:
           name: 'John Doe'
           age: 25
