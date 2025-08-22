@@ -20,9 +20,9 @@ name: Publish Artifacts to Servicenow
 
 on:
   workflow_dispatch:
-  release:
-    types:
-      - published
+  push:
+    branches:
+      - main
 
 
 jobs:
@@ -31,9 +31,11 @@ jobs:
     environment: update_servicenow_artifacts
     
     steps:
-        - name: Fetch latest tags
-          uses: ./.github/workflows/reusable-workflow.yml@main
-          with:
-            name: 'John Doe'
-            age: 25
-            
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Fetch latest tags
+        uses: ./.github/workflows/reusable-workflow.yml@main
+        with:
+          name: 'John Doe'
+          age: 25
