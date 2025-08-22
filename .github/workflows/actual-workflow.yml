@@ -1,0 +1,39 @@
+name: Publish Artifacts to Servicenow
+# Publishes artifacts to ServiceNow from GitHub releases.
+# version: 1.0.1
+
+# Required Secrets:
+#  SN_API_KEY                       -- ServiceNow API Key for authentication
+
+# Required Environment Variables:  
+#  SN_INSTANCE             -- ServiceNow instance URL (e.g., https://example.service-now.com)
+#  SN_TABLE_NAME           -- ServiceNow table name (e.g., x_app_migration_migration_artifacts)
+#  SN_PRODUCT_NAME         -- Product name to filter records (e.g., API Manager)
+#  SN_PRODUCT_CODE         -- Product code to filter records (e.g., apim)
+#  MIN_VERSION             -- Minimum version to consider for fetching tags, format: Major.Minor.Patch.Build (e.g., 1.0.0.0)
+#  RELEASE_TAG_PATTERN     -- Pattern to match release tags, Regex: /^v(\d+)\.(\d+)\.(\d+)\.(\d+)/ (e.g., ^v(\d+)\.(\d+)\.(\d+)\.(\d+)$)
+
+# This workflow fetches the latest tags from the repository, groups them by major.minor version,
+# and uploads the latest release assets to ServiceNow. It also deletes existing records in ServiceNow
+# that match the product name before uploading new artifacts.
+# This workflow is triggered on manual dispatch or on release publication main branch.
+
+on:
+  workflow_dispatch:
+  release:
+    types:
+      - published
+
+
+jobs:
+  fetch-latest-tags:
+    runs-on: ubuntu-latest
+    environment: update_servicenow_artifacts
+    
+    steps:
+        - name: Fetch latest tags
+          uses: ./.github/workflows/reusable-workflow.yml@main
+          with:
+            name: 'John Doe'
+            age: 25
+            

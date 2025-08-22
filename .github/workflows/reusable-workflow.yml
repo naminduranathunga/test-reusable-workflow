@@ -1,0 +1,23 @@
+name: Reusable Workflow 1
+
+on:
+    workflow_call:
+        inputs:
+            name:
+                required: true
+                type: string
+            age:
+                required: false
+                type: number
+                default: 30
+
+jobs:
+    example_1:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Print inputs and secrets
+              run: |
+                echo "Name: ${{ inputs.name }}"
+                echo "Age: ${{ inputs.age }}"
+                echo "This is a reusable workflow example."
+            
